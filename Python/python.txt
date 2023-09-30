@@ -1,0 +1,342 @@
+Python 
+
+Installing pythin IDE
+
+-install python interpreter
+https://www.python.org/downloads/release/python-3115/
+2. install pyton IDE pycharm
+https://www.jetbrains.com/pycharm/download/?section=windows
+
+
+Assigning  function to a variable
+>>> p=print
+>>> p(2)
+2
+
+Print method
+in python 2 
+
+>>>print "kudzie" #kudzie
+
+in Python 3 
+>>>print 3 
+>>>print "hello" 
+
+the above print statement throws a invalid syntax
+
+Solution 
+
+print is no more a statment in Python 3 but a method
+
+>>>print("kudzie") #kudzie
+>>>print(20) #20
+
+>>> 3+5
+8
+>>> 12-5
+7
+>>> 7*9
+63
+
+Floating point division
+
+>>> 12/4
+3.0
+
+Integer division
+>>> 12//5
+2
+>>>
+
+>>> 6-7*3/6
+2.5
+>>> 684-64+5*
+  File "<stdin>", line 1
+    684-64+5*
+             ^
+SyntaxError: invalid syntax
+>>>
+
+Powers in python
+>>> 2*2*2*2
+16
+>>> 2**4   i.e 2 power of 4
+16
+>>>
+
+Precedenece operations in python
+>>> 8+2*3
+14
+>>> (8+2)*3
+30
+>>>
+
+Modulus (%) / Reminder
+>>> 10%3
+1
+>>>
+
+Printing Strings
+
+>>> "kudzie"
+'kudzie'
+>>> 'kudzie'
+'kudzie'
+>>> print('madziva')
+madziva
+>>> print("madziva")
+madziva
+>>>
+
+
+Printing string with escape characters
+>>> print('kudzie's daughters')
+  File "<stdin>", line 1
+    print('kudzie's daughters')
+          ^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+Solution
+
+>>> print("kudzie's daugthers")
+kudzie's daugthers
+>>>
+
+Printing string with double quotes
+>>> print("He says "kids come to school"");
+  File "<stdin>", line 1
+    print("He says "kids come to school"");
+          ^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+>>>
+
+Solution
+
+>>> print('He says "kids come to school"');
+He says "kids come to school"
+
+printing both quotes
+-you can use double quotes and single quotes with single qotes
+>>> print('He's a man like "Thomas"')
+  File "<stdin>", line 1
+    print('He's a man like "Thomas"')
+          ^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+>>> print('He\'s a man like "Thomas"')
+He's a man like "Thomas"
+
+String concantate
+>>> 'kundai'+'kudzie'
+'kundaikudzie'
+>>> "kudzai"+"kundai"
+'kudzaikundai'
+>>> print('kundai'+'kudzai')
+kundaikudzai
+>>> print("kudzie"+"kuda")
+kudziekuda
+
+>>> 10* 'kudzai'//print the kudzie 10 times
+'kudzaikudzaikudzaikudzaikudzaikudzaikudzaikudzaikudzaikudzai'
+>>> 10* "kudzai"
+'kudzaikudzaikudzaikudzaikudzaikudzaikudzaikudzaikudzaikudzai'
+
+
+printing raw string
+-printing the String as it is 
+>>> print('c:\docs\navin')
+c:\docs
+avin
+>>> print("c:\docs\navin")
+c:\docs
+avin
+>>>
+
+solution for printing raw string
+
+>>> print(r"c:\docs\navin")
+c:\docs\navin
+>>> print(r'c:\docs\navin')
+c:\docs\navin
+
+
+Varibales in python
+variables is a container/box
+x=2
+>> x=2
+>>> x+3
+5
+>>> y=3
+>>> x+y
+5
+>>> z=2
+>>> y=3
+>>> z
+2
+
+Overriting the variable 
+
+>>> z=10
+>>> z+y
+13
+Output of the previous operation
+-use underscore
+
+>>> w=20
+>>> b=10
+>>> w+b
+30
+>>> _+1
+31
+
+Fetching characters in the string
+
+>>> myname="kudzie"
+>>> myname
+'kudzie'
+>>> myname[0]
+'k'
+>>> myname[20] //throws an exception
+
+Feching from the back
+>>> myname[-3]
+'z'
+
+Extracting part of the string
+StringVaribale[startIndex i.e inclusive:endIndex i.e exclusive]
+
+>>> myname[0:2]
+'ku'
+>>> myname[1:4]
+'udz'
+
+Not specifying end or begining
+>>> myname[1:] //get the String from index 1 to the end of Striing
+'udzie'
+>>> myname[:4]//get string from start to index before 4 i.e 3
+'kudz'
+
+Specifying big index
+
+>>> myname[3:20]
+'zie'
+>>> myname[200]//throws an exception
+
+
+String in python are immutable
+
+myname[0:2]='Taku' //throws an error
+myname[0]='R' //throws error
+
+Solution
+
+>>> 'Taku'+myname[3:6]
+'Takuzie'
+
+>>> name="Kudzai Madziva"
+>>> len(name)
+14
+
+
+Arrays & List
+list are muttable
+
+
+>>> nums=[25,12,56,67,789]
+>>> nums[2]
+56
+>>> nums[2:] //get the part of the array 
+[56, 67, 789]
+>>> nums[-1] //reading from the back of the arry
+789
+
+printing the whole array
+>>> nums
+[25, 12, 56, 67, 789]
+>>> names=["kundai",'kudzai',"kudzanai"]
+>>> names
+['kundai', 'kudzai', 'kudzanai']
+
+Array of different values
+['kundai', 'kudzai', 'kudzanai']
+>>> values=[9.5,'kudzai',20]
+
+Arrays inside the arrays
+>>> bigArray=[names,nums]
+>>> bigArray
+[['kundai', 'kudzai', 'kudzanai'], [25, 12, 56, 67, 789]]
+
+append()
+>>> names.append("java")
+>>> names
+['kundai', 'kudzai', 'kudzanai', 'java']
+
+
+Inserting a value into the String
+
+>>> values
+[9.5, 'kudzai', 20]
+>>> values.insert(1,"Java")
+>>> values
+[9.5, 'Java', 'kudzai', 20]
+
+Removing a specific value from a list
+>>> values
+[9.5, 'Java', 'kudzai', 20]
+>>> values.remove("kudzai")
+>>> values
+[9.5, 'Java', 20]
+
+
+Remove the last element
+
+>>> values
+[9.5, 'Java', 20]
+>>> values.pop()
+20
+>>> values
+[9.5, 'Java']
+
+
+removing at the specific index ny pop(index)
+
+>>> values
+[9.5, 20, 'Java']
+>>> values.pop(1)
+20
+>>> values
+[9.5, 'Java']
+
+Deleting from specific index
+
+[25, 12, 56, 67, 789]
+>>> del nums[2:] //delete from index 2 to the last index
+>>> nums
+[25, 12]
+
+
+Adding multiple values
+
+>>> nums
+[25, 12]
+>>> nums.extend([29,12,14,36])
+>>> nums
+[25, 12, 29, 12, 14, 36]
+>>>
+
+Calculating mean, min sum , max
+
+>>> nums
+[25, 12, 29, 12, 14, 36]
+>>> min(nums)
+12
+>>> max(nums)
+36
+>>> sum(nums)
+128
+
+Sorting the list
+>>> nums
+[25, 12, 29, 12, 14, 36]
+>>> nums.sort()
+>>> nums
+[12, 12, 14, 25, 29, 36]

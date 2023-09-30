@@ -1,0 +1,598 @@
+spring Notes
+
+Tutorial 1
+
+https://www.youtube.com/watch?v=m-L-r862J-E&list=PLEocw3gLFc8Vli5p6rWHnNcYxFRbaIfIJ&index=1
+
+1. create mavern project in the intellij
+
+pom.xml
+<dependencies>
+   <dependency>
+   <groupId>org.springframework</groupId>
+   <artifactId>spring-context</artifactId>
+   <version>5.1.6.RELEASE</version>
+   </dependency>
+</dependencies>
+
+- spring-context 
+-is the dependency that we use to put beans into the spring-context
+
+2. Set Language Level
+> File>Project Structure> Modules> language Level> select 12 preview 
+>src>Main.java
+
+public class Main{
+psvm(String [] args){
+
+try(var context= new AnnotationConfigApplicationContext(ProjectConfig.class)){
+MyBean b1 = context.getBean(MyBean.class);//get runtime error coz there wil be more than one instances  the compiler will be confused on which bean instance to take since they are all same in the config solution is to annotated  a default bean with @Primary  or to request bean by name/type
+
+MyBean b2 = context.getBean("myBean",MyBean.class);
+
+MyBean b3 = context.getBean("myBean1",MyBean.class);
+
+MyBean b4 = context.getBean("myBean",MyBean.class);
+
+//getBean ByName
+
+
+sout(b1.getText());
+sout(b2.getText());
+sout(b3.getText());
+sout(b4.getText());//this will return one same beans coz its refrencing from same Bean i.e Singleton
+}
+
+}
+}
+
+Configuring Application Context
+
+1. XML
+2. Annotations
+3. 
+
+src>java>config
+@Configuration
+//@ComponentScan(basePackages="pakages with @Component") //tells spring to scan for @Component
+public class ProjectConfig{
+//create a bean instance & add the bean to the context 
+//1 Use @Bean
+
+@Bean //this will add the return of the below method to spring-context
+
+@Primary //annotate the default bean if ther are many instances
+public MyBean myBean(){
+//return new MyBean();//this instance of the bean will paced to the context
+
+MyBean b=new MyBean();
+
+b.setText("Hello Kundie ");
+
+return b;
+}
+@Bean("myBean1")//@Bean("name")
+public MyBean myBean1(){
+
+MyBean b=new MyBean();
+
+b.setText("wake upp");
+
+return b;
+}
+}
+
+
+
+-you can have Annotation config or XML
+
+src>java>beans
+//Component //this is the sterotype annotation coz even if you define it you need to tell spring to scan for components- this create instance of bean in the spring-context
+public class MyBean{
+
+private String text;
+
+//@PostConstruct //tells spring that it have to call init soon after bean creation or after bean constructor finsish excuting
+private void init(){
+this.text="Good day Kudzie";
+}
+//getter & setters
+
+
+}
+
+@Componet          vs                  @Bean
+-good for one beans  -good for multiple same beans
+- you can only place one @Component
+at th top of class
+
+StereType Annotation
+
+@Component
+@Controller
+@Repository
+@Service
+
+even if you put @Service in place of @Component the code will work
+
+
+@Autowiring
+-used to get beans from spring-contxt
+
+>service>ProductDeliveryService
+-service are class that process something
+
+//@Component
+@Service //nothing wrong to specify @Component but its good practice to @Services so that we can know this are services components
+public class ProductDeliveryService{
+
+
+@Autowired//can work using @Bean or XML
+private ProductRepository productRepository;//this variable cannot be final coz it is 
+going to be set with a value
+//productRepository is null unless it is annotated wit @Autowired that will extract the product from spring-context
+
+public void addSomeProducts(){
+
+productRepository.add();
+productRepository.add();
+productRepository.add();
+
+}
+
+}
+
+>repository>ProductResposistory.java
+-respository are classes that is working with tables
+
+//@Component
+@Respository
+public class ProductResposistory{
+
+public void add(){
+sout("Product was added");
+}
+}
+
+
+>config>ProjectConfig.java
+
+@Configuration
+@ComponentScan(basePackages={"services","repository"})
+public class ProjectConfig{
+
+}
+
+
+>Main
+
+public class Main{
+psvm(String [] args){
+try(AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ProjectConfig.class)){
+ProductDeliveryService service = context.getBean(ProductDeliveryService.class);
+service.addSomeProducts();
+}
+}
+}
+
+Autowired
+-can be implemented in 3 ways
+
+1. Autowired on Constructor
+2. Autowired on setMethod
+3.Autowired on the feild
+
+
+1. Autowired on Constructor
+-mostly adviced to Autowire using a construstor
+
+-it forces you as the developer to adhere to Single Responsibility Principle (SOLID) coz at the end you cannot overload the constructor with 20parameters but you may try to limit the parameters then creating many class for a single responsiblity
+
+- Auto wire using constructor allows the developer full freedom coz you can interfer with the constructor unlike on the Autowire using field
+
+
+private final ProductRepository productRepository;
+//this can be final coz we're 
+//coz normally we don't create a value of repository
+//allows us to keep the compoment immutable
+
+
+
+
+@Autowired
+//ProductRepository is injected in the constructor parameter then assigned at the end of java object life cyle coz we are allowed by java to assign to final variables
+public ProductDeliveryService(ProductRepository productRepository){
+this.productRepository=productRepository;
+
+}
+
+
+
+
+SPRING SECRUTITY
+
+Depenedencies
+>web
+>security
+
+controller
+
+HelloController.java
+
+@RestController
+public class HelloController{
+
+@GetMapping("hello")
+public String hello(){
+return "hello kudzie";
+}
+}
+
+
+RUNNING REST ON CMD
+curl http://localhost:8080/hello
+
+if there is security
+curl -u user:paste_password http://localhost:8080/hello
+
+
+>config package
+-we should specify which ends with security
+
+ProjectConfig.java
+@Configuration
+public class ProjectConfig extends WebSecurityConfigAdapter{
+
+
+//define a bean of PasswordEncoder
+@Bean
+public PasswordEncoder passwordEncoder(){
+
+return new PlainTextPasswordEncoder(); 
+}
+@Bean
+public UserDetailsManager userDetailsManager(){
+
+AppUserDetailsManager manager= new AppUserDetailsManager();
+manager.createUser(new User("kudzie","1234"));
+return manager;
+}
+
+/*
+@Bean
+public PasswordEncoder passwordEncoder(){
+
+return NoOpPasswordEncoder.getInstance(); 
+}
+@Bean
+public UserDetailsManager userDetailsManager(){
+
+InMemoryUserDetailsManager manager= new InMemoryUserDetailsManager();
+UserDetails user = User.withUsername("kudzie")
+                       .password("1234")
+                       .authorities("AMIN");
+                       .build()
+manager.createUser(user);
+return manager;
+}
+
+
+*/
+
+@Override 
+protected void config(HttpSecurity http) throws Exception{
+//what & how to secure
+//super.config(http);
+http.httpBasic();
+http.autorizeRequests().anyRequest().permitAll();//any request will be permited no security
+http.autorizeRequests().anyRequest().authenticated();
+}
+
+}
+
+
+>security packages
+
+User.java
+-create custom security password not spring generated password
+
+
+public class User implements UserDetails{
+
+private String username;
+private String password;
+
+public User(String username, String password){
+this.username=username;
+this.password=password;
+}
+
+@Override
+public Collection<? extends GrantedAuthority> getAuthorities(){
+//List of users and their role
+return List.of(()-> "ADMIN", () -> "USER");
+//for java 8 & less 
+return Array.asList(()-> "ADMIN", () -> "USER");
+}
+
+@Override
+public String getPassword(){
+return password;
+}
+@Override
+public String getUsername(){
+return username;
+}
+
+@Override
+public boolean isAccountNonExpired(){
+return true;
+}
+
+@Override
+public boolean isAccountNonLocked(){
+return true;
+}
+
+@Override
+public boolean isCredentialsNonExpired(){
+return true;
+}
+
+@Override
+public  boolean isEanable(){
+return true;
+}
+
+}
+
+>security package
+
+AppUserDetailsManager.java
+-this the just the controller that manage users in the database, file etc
+
+public class AppUserDetailsManager implements UserDetailsManager{
+
+private List<UserDetails> users= ArrayList<>();
+
+
+@Override
+public void createUser(UserDetails userDetails){
+users.add(userDetails);
+}
+
+@Override
+public void upadateUser(UserDetails userDetails){
+
+}
+
+@Override
+public  void deleteUser(String username){
+
+}
+
+@Override
+public  void changePassword(String s, String s1){
+
+}
+
+@Override
+public boolean userExists(String s){
+return users.sream() //convert an a List to the List
+.filter(u-> u.getUsername().equals(username))
+.findFirst()
+.isPresent();
+}
+
+@Override
+public UserDetails loadUserByUsername(String username) trows UsernameNotFoundException{
+return users.sream() 
+.filter(u-> u.getUsername().equals(username))
+.findFirst()
+.orElseThrow(()-> new UsernameNotFoundException(":)"));
+//.orElse(null);//this not the best way of handling exception
+}
+
+
+>security package
+
+PlainTextPasswordEncoder.java
+
+public class PlainTextPasswordEncoder implements PasswordEncoder{
+
+@Override
+public String encode(CharSequence charSequence){
+return charSequence.toString();
+}
+
+@Override
+public boolean matches(CharSequence charSequence, String s){
+return charSequence.toString().equals(s);
+}
+
+}
+
+
+
+
+WIRING, AUTOWIRING, QUALIFIER and more option to manage the context
+
+>beans package
+Cat.java
+public class Cat{
+private String name;
+//getter & setter & to String
+}
+
+Owner.java
+public class Owner{
+
+//Autowired 
+//@Oualifier("cat2");//we can specify the bean to be used
+private Cat cat;
+//getter & setter & to String
+}
+
+>config package
+ProjectConfig.java
+
+@Configration
+public class ProjectConfig{
+
+@Bean
+//@Primary making this bean a default
+public Cat cat(){
+Cat cat= new Cat();
+cat.setName("Java");
+//return cat;
+return new Cat;//this will return null cat object
+}
+@Bean
+
+//@Oualifier("cat1")
+public Cat cat1(){
+Cat cat= new Cat();
+cat.setName("Java Cat 1");
+return cat;
+}
+@Bean
+//@Oualifier("cat1")
+public Cat cat2(){
+Cat cat= new Cat();
+cat.setName("Java Cat 2");
+return cat;
+}
+
+@Bean  //this @Bean annotation will intialize the paramether cat with cat bean in the context  
+//@Autowired
+public Owner owner(Cat cat){
+Owner o= new Owner();
+o.setCat(cat);
+return o;
+
+}
+
+}
+
+Main.java
+
+public class Main{
+
+psvm(String []args){
+try(var c = new ApplicationConfigContext(ProjectConfig.class)){
+
+Cat c = c.getBean(Cat.class);
+Owner o = c.getBean(Owner.class);
+
+sout(c);
+sout(o);
+}
+}
+}
+
+Managing context using SteroTypes
+
+
+>beans package
+Cat.java
+
+
+@Component
+public class Cat{
+private String name;
+//getter & setter & to String
+}
+
+Owner.java
+
+@Component
+public class Owner{
+//@Autowired 
+//allows to intialize the field or constructir & method below with the bean context value i.e that is cat if the Cat object value is null this @Autowired will throws an exception
+
+Or if ther are many instances of beans  spring will throw the exception so we can annoted one bean as @Primary
+
+
+@Autowired(required=false);//by default its required is true we can use this one when the bean is not there
+//private  Cat cat
+
+
+private final Cat cat;//this wil show compile error to prevent this we inject to a parameter
+
+@Autowired //this will inject to the parameter this the best paractice coz beans are singleton in spring means that having one instance of that type
+public Owner(Cat cat){
+this.cat=cat;
+}
+
+
+//getter & setter & to String
+}
+
+>config package
+ProjectConfig.java
+
+@Configration
+@ComponentScan(basePackages="beans")
+public class ProjectConfig{
+
+
+
+}
+
+Main.java
+
+public class Main{
+
+psvm(String []args){
+try(var c = new ApplicationConfigContext(ProjectConfig.class)){
+
+Cat c = c.getBean(Cat.class);
+c.setName("Java 2");
+Owner o = c.getBean(Owner.class);
+
+sout(c);
+sout(o);
+}
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

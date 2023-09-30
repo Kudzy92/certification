@@ -1,0 +1,2179 @@
+Encapsulation
+
+
+JavaFX tutorial
+https://www.youtube.com/@marcomanchannel
+https://www.youtube.com/@gleidsonneves5895
+https://github.com/HouariZegai
+
+Spting framework Spring boot
+
+dependencies
+> Developer tools
+>Web
+
+-@springboot will automatically scan for stereotype annotation in the default package and subpackages automaticaly 
+
+
+server.port=9090
+
+Adding packages in the mainpackages
+
+
+
+
+
+
+
+
+
+
+
+
+Building Java Stuff with ChatGPT
+
+-helps to hence productivitys
+
+Spring framework - Transaction propagation
+
+Spring framwork -Spring Boot
+
+
+
+
+Handle Exception
+
+Exception 
+-java used exception to handle errors and other exceptional events
+-it alter the flow of program
+
+-java.lang.Throwable is theparent class of all exception
+
+Types of Exception
+
+1. Checked exception
+-must be declared or handled by the application where it is thrown
+-when you throw it you should catch the exception/treat it
+
+psvm(){
+throw IOException();//will not compile you have to treat it by wrapping it with a try-catch-block
+}
+e.g
+
+IOException
+        FileNotFoundException
+        ObjectStreamException 
+                 NonSerialiableException      
+ParseException
+SQLException
+>will not compile
+public class Main{
+public static void main (String[] args){
+  new Main().scope();
+}
+public void scope(){
+throw new FileNotFoundException("testing runtime exception");
+//must be caught or declared to be thrown
+}
+}
+
+2. UnChecked Exception 
+-doesn't need to be declared or handled by the application where it is thrown
+-exception may be thrown but its optional to catch
+
+psvm(){
+throw ArithematicException();//compiles
+}
+
+>will compile
+public class Main{
+public static void main (String[] args){
+  new Main().scope();
+}
+public void scope(){
+throw new RuntimeException("testing runtime exception");//will compile
+}
+}
+
+Error 
+-Exception thrown by JVM
+-they should not handled or declared
+e.g 
+OutOfMemoryError 
+ StackOverflowError
+ NoClassDefFoundError
+Runtime Exception
+-occurs while program is running
+
+
+NB
+-its good to provide the mesage of the exception
+
+-throws in the method declaration an checked exceptions when its is not posible to write try-catch-block or treat it
+
+
+e.g
+NullPointerException
+ ArrayIndexBoundException
+ ArithematicException
+ ClassCastException
+ IllegalArgumentException
+ NumberFormatException
+ 
+ 
+
+TryArithematicException.java
+public class TryArithematicException{
+
+psvm(String... a){
+int a=0;
+int b=10;
+int c = b/a;
+sout(c);
+}
+}
+
+TryArryIndexOutOfBoundException.java
+public class TryArryIndexOutOfBoundException{
+
+psvm(String... a){
+int[] arrayElements= new int[10];
+
+sout(arrayElements[-1]);
+}
+}
+
+TryClassCastException.java
+public class TryClassCastException{
+
+psvm(String... a){
+String type="kudzie";
+//Integer number= (Integer) type;
+
+Object obj=type;//coz everything comes from object
+Integer number=(Integer) obj;
+sout(number);
+}
+}
+
+TryNullPointerException.java
+public class TryNullPointerException{
+sttsic String name;//will intialiazied to null 
+psvm(String... a){
+String name2=null;
+sout(name.length());
+sout(name2.length());
+}
+}
+
+TryArithematicException.java
+public class TryArithematicException{
+
+psvm(String... a){
+int a=0;
+int b=10;
+int c = b/a;
+sout(c);
+}
+}
+
+TryIllegalArgumentException.java
+public class TryIllegalArgumentException{
+int numberOfEggs;//this will be intia;lized to zero coz it an intance variable
+
+public void setNumberofEggs(int numberEggs){
+if(numberEggs>=0)
+ this.numberEggs=numberEggs;
+else 
+throw new illegalArgumentException("Number of eggs should be positive");
+}
+
+psvm(String... a){
+new TryIllegalArgumentException().setNumberOfEggs(-2);
+}
+}
+
+TryNumberFormatException.java
+public class TryNumberFormatException{
+
+psvm(String... a){
+sout(Integer.parseInt("abc"));
+}
+}
+
+Errors
+
+TryExceptionInIntializerError.java
+public class TryExceptionInIntializerError{
+static{
+int arr1[]={1,3,5}
+sout(arr1[20]);
+}
+
+psvm(String... a){
+
+}
+}
+
+TryStackOverFlowException.java
+public class TryStackOverFlowException{
+
+psvm(String... a){
+doNotCodethis(1);
+}
+public sttsic void doNotCodethis(int num){
+doNotCodethis(1);
+}
+}
+
+
+Remember 
+
+O           Object
+
+T            Throwable
+
+E   E    Exception       Error
+
+R        Runtime Exception
+
+
+
+Approaches to Exception in java
+
+1. handle : wrapped in a compatible try-catch block
+
+Option 1
+try{//curly brackets are required
+//protected code
+}catch(exception_type indentifier){
+//Exception handler
+}
+
+Option 2
+try(resources){//curly brackets are required
+//protected code
+}catch(exception_type indentifier){
+//Exception handler
+}
+
+Option 3
+try{
+
+}catch(exception_type indentifier){
+
+}finally{
+
+}
+
+e.g
+
+void fall(int distance){
+try{
+if(distance>10)
+throw new IOException();
+}catch(IOException ex){
+ex.printStackTrace();
+}
+}
+
+2. declare : state in the method signature
+
+void fall(int distance) throws IOException{
+if(distance>10)
+throw new IOException();
+}
+
+
+
+throw vs throws
+
+throw
+-an exception is actually being thrown
+-this forces the compile to get out of the try/method block
+e.g 1
+try{
+throw new IOException();
+System.out.println("Exception");//will not compile coz unreachable statement
+}catch(ArrayIndexOutOfBoundsException e){
+System.out.println("index of an array out of bound");
+}
+
+e.g 2
+ public static void m1(){
+    throw new Exception();
+    System.out.println("Exception");
+  }
+
+throws
+-the method merely has the potential to throw an Exception
+
+We can't use more than one throw statement in one tryblock
+
+void fall(int distance){
+try{
+if(distance>10){
+throw new IOException();
+throw new RuntimeException();//Compile error 
+}
+}catch(IOException ex){
+ex.printStackTrace();
+}
+}
+
+
+Summary - types of exception
+
+type   
+-Checked exception
+-Runtine exception
+-Error 
+
+how to recognize  
+-SubClass of RuntimeException  but not subclass of RuntimeException
+-Subclass of RuntimeException
+-Subclass of Error
+oky for program to catch 
+-yes
+-Yes
+-No
+is program required to handle or declare
+-yes
+-No
+-No (this consider bad programming to get Errors) 
+
+Remember
+
+-curly brackets are required for try-catch and finally block
+
+try
+new throw Exception();
+catch(Exception ex)
+sout("msg");
+
+//will not compile coz there is no brackets
+
+-The order of the try ststement is try followed by catch then finally block
+
+try{
+new throw Exception();
+}finally{
+sout("msg");
+}catch(Exception ex){
+sout("msg");
+}
+
+//will not compile coz the order should be try-catch-finally
+
+-it followed either catch or finally block or both
+try{
+throw new Exception();
+}
+//will not compile coz the try-catch-block is not complete
+
+try-catch-finally block
+Option 1
+
+
+try{
+new throw Exception();
+}catch(Exception ex){
+sout("msg");
+}
+
+Option 2
+
+try{
+new throw Exception();
+}finally{
+sout("msg");
+}
+
+Option 3
+
+try{
+new throw Exception();
+}catch(Exception ex){
+sout("msg");
+}finally{
+sout("msg");
+}
+
+-When checked exception declared inside a catch block makesure try block is capable of throwing the exception or subclass of the exception
+
+This rule doen't apply to
+
+1. Unchecked exception
+2.Exceptions declared in a method signature
+3. Exception class
+
+Main.java
+
+class NoMoreCarrotsException extends Exception{
+
+}
+
+public class Main{
+psvm(String... a){
+
+try{
+eatCarrot();//this method is not throwing an  exception will not compile
+}catch(NoMoreCarrotsException e){
+sout("msg");
+}
+
+try{
+eatCarrot();//compiles
+}catch(NullPointerException e){
+sout("msg");
+}
+
+try{
+good();//compiles
+}catch(NoMoreCarrotsException e){
+sout("msg");
+}
+}
+
+public void good throws NoMoreCarrotsException(){
+
+}
+
+private static void eatCarrot(){}
+
+}
+
+Chaning catch-block
+-when unchecked exception and its subclasses declared inside catch blocks make sure 
+
+   - subsclass catch block must be followed by superclass catch block
+-can not use exception type outside the catch block
+
+ ChanningCatch.java
+ 
+  for uncheckedException
+ 
+ class AnimalsOutForMalk extends RuntimeException{}
+ class ExhibitClosed extends RuntimeException{}
+ class ExhibitClosedForLunch extends ExhibitClosed{}
+ 
+ public class ChanningCatch{
+ psvm(){
+ try{
+ seeAnimals();
+ }catch(AnimalsOutForMalk e){//subclass exception for RuntimeException
+ sout("try back later");
+ }catch(ExhibitClosed e){//subclass exception for RuntimeException
+ sout("not today");
+ }
+ }
+ public void visitMonkey{
+ //Subclass followed by superclass will compile
+  try{
+ seeAnimals();
+ }catch(ExhibitClosedForLunch e){//subclass exception forExhibitClosed subclass RuntimeException
+ sout("try back later");
+ }catch(ExhibitClosed e){//superclass exception for ExhibitClosed 
+ sout("not today");
+ }
+ 
+ 
+ //superclass followed by subclass will not compile
+ 
+ try{
+ seeAnimals();
+ }catch(ExhibitClosed e){//superclass exception 
+ sout("not today");
+ }catch(ExhibitClosedForLunch e){//subclass exception  RuntimeException
+ sout("try back later");
+ }
+ 
+ }
+ 
+ 
+ Unchecked exception RuntimeException
+ public void visitManatess{
+ try{
+ 
+ }catch(NumberFormatException e1){
+ 
+ }catch(IllegalArgumentException e2){
+ sout(e1);//wil not compile coz variable e1 is from the another catch block or e1 is out of scope
+ }
+ }
+ 
+ private void seeAnnimal(){
+ throw new ExhibitClosed();
+ }
+ 
+ }
+
+
+
+Declaring & Override Methods with Exception
+
+-when a class override a method it's not allowed to add new checked exceptions to the method signature
+
+Bunny.java
+
+class CanNotException extends Exception{}
+class Mapper{
+
+@Override
+public void hop(){
+
+}
+
+@Override
+public void hop2(){
+
+}
+}
+public class Bunny extends Mapper{
+
+@Override
+public void hop  throws CanNotHopException{//this will not ompile coz the override method hop() was not throwing exception occurs for checked exception
+
+}
+
+@Override
+public void hop2  throws illegalArgumentException{//this works for unchecked exception
+
+}
+}
+
+
+An overriden method in the subclass is allowed to declare fewer exceptions than the superclass or interface
+
+Bunny2.java
+
+class CanNotException1 extends Exception{}
+class Mapper1{
+
+@Override
+public void hop() throws CanNotHopException1{
+
+}
+
+@Override
+public void hop2(){
+
+}
+}
+public class Bunny2 extends Mapper1{
+public void hop{//this compiles coz the overriden method can declare few exception than declared on the method in superclass
+
+}
+
+}
+
+-class is allowed to declare a subclass of an exception type
+
+Bunny2.java
+
+class CanNotException2 extends Exception{}
+class Mapper2{
+public void hop() throws Exception{
+
+}
+
+}
+public class Bunny2 extends Mapper2{
+
+@Override
+public void hop  throws CanNotHopException{//this compile coz the overiden method in superclass throws supertype exception to the one in subclass Bunny2
+
+}
+
+}
+
+-methods are free to throw any unchecked exceptions they want without mentioning them in the method declaration
+
+
+
+
+Parent.java
+public class Parent{
+
+protected static Number method(String name) throws Exception{
+sout("Parent Method");
+return 1;
+}
+
+}
+
+class Child extends Parent{
+@Override //use @Overriden with OneStatic methods
+public final static Integer metod(String name) throws IOException{
+//checked exception (same/subtype/No)
+//RuntimeException(freely write any where)
+
+//Return type of the overrided method can have (Same/SubType)
+
+//Access modifer of the overrided method can have (Same/Broader)
+
+//Method Signature(Method name & parameters) of the overrided method can have (Same)
+
+//Final method cannot be annotated with @Overriden
+
+//Same Non ststic () / Static (hidding)
+
+sout("third method");
+return 2;
+}
+}
+
+Example : Overriding exception
+
+public class Main {
+    public static void main(String[] args) {
+     A obj=new B();
+     obj.m1();
+  }
+}
+
+//A.java
+class A{
+public void m1() throws MyCheckedException, TooMuchMoneyException{
+
+}
+}
+//B.java
+
+class B extends A{
+/*@Override
+public void m1() throws MyCheckedException{//Overriden method cannot throws a biger Exception than the ones in the super class or interface.You can have no exception in the overriden method
+//MyChecked should be declared
+throw new MyCheckedException("file not found");
+}*/
+/*public void m1() throws Exception{//will not compile
+
+}*/
+public void m1() throws MyCheckedException, TooMuchMoneyException{//compiles
+throw new MyCheckedException("file not found");
+  }
+//public void m1() throws MyCheckedException{//compiles
+//throw new FileNotFoundException("File not found");
+//}
+}
+
+class TooMuchMoneyException extends RuntimeException{
+
+public TooMuchMoneyException(){
+super();
+}
+public TooMuchMoneyException(String msg){
+super(msg);
+}
+}
+class MyCheckedException extends FileNotFoundException{
+
+public MyCheckedException(){
+super();
+}
+public MyCheckedException(String msg){
+super(msg);
+}
+}
+
+Interfaces with methods that throws Exception
+
+public class Main {
+    /*public static void main(String[] args) throws IOException{
+      A obj=new B();
+     obj.m1();
+     
+      obj.m2();
+  }*/
+  public static void main(String[] args) {
+      A obj=new B();
+     obj.m1();//optional for unchecked exception to be catched or thrown in the method declaration
+     //Good to throws RuntimeException for document purpose
+      try{
+      obj.m2();//must be treated if its a checked exception
+      }catch(IOException ex){
+      ex.printStackTrace();
+      }
+  }
+}
+
+//A.java
+class B implements A{
+@Override
+public void m1() throws RuntimeException{
+
+}
+@Override
+public void m2() throws IOException{
+throw  new IOException();
+}
+}
+//B.java
+
+public interface A {
+
+void m1() throws RuntimeException;
+
+void m2() throws IOException;
+}
+
+Overriding exception thrown
+public class Main {
+    public static void main(String[] args) throws IOException{
+      A obj=new B();
+     obj.m1();
+     try{
+      obj.m2();
+     }catch(IOException ex){
+       System.out.println(ex.getMessage());
+     }
+  }
+}
+
+//A.java
+class B implements A{
+@Override
+public void m1(){
+System.out.println("UnChecked exception");
+}
+/*
+@Override
+public void m1() throws ArrayIndexOutOfBoundsException{
+System.out.println("UnChecked exception");
+}
+*/
+@Override
+public void m2() throws IOException{
+throw  new IOException();
+}
+}
+//B.java
+
+public interface A {
+
+void m1() throws ArrayIndexOutOfBoundsException,ArithmeticException;
+
+void m2() throws IOException;
+}
+
+
+
+Multi-catch-block
+-Exceptions inside multi-catch block aren't related
+-Exception can be listed in any order but variable names aprear once
+
+try{
+//Protected Code
+}catch(Exception1 | Exception2 e){
+//single identifier for all exception types
+// | is required btwn exception types
+//Catch Either of those exceptions
+
+//Exception Handler
+}
+
+MultiCatchException.java
+
+public class MultiCatchException{
+
+psvm(String [] args){
+try{
+sout(args[1]);
+}catch(ArrayIndexOutOfBoundsException e){
+//e.printStackTrace();
+sout("Invalid index to the array");
+}catch(NumberFormatException e){
+//e.printStackTrace();
+sout("Missingf or invalid input");
+}
+
+}
+}
+
+output
+Invalid index to the array
+
+
+try{
+System.out.println(args[1]);
+
+}catch(ArrayIndexOutOfBoundsException | NumberFormatException e){
+//e.printStackTrace();
+System.out.println("invalid input");
+}
+
+SuperType/subClass exception cannot be multi-catched
+
+try{
+throw new IOException(); 
+
+}catch(FileNotFoundException | IOException e){
+//e.printStackTrace();
+System.out.println("i/o error");
+}
+
+Solution 
+-you just take one type either subclass or super type exception
+
+try{
+throw new IOException(); 
+
+}catch(IOException e){
+//e.printStackTrace();
+System.out.println("i/o error");
+}
+
+Output
+i/o error
+
+
+Multi-catch with different Exception but every Exception in Catch() should be thrown
+
+ int a=6;
+   int b=0;
+ 
+    try{
+        int d=a/b;
+System.out.println(d);
+System.out.println(args[0]);
+throw new IOException();
+
+}catch(ArithmeticException | IOException | ArrayIndexOutOfBoundsException e){
+//e.printStackTrace();
+System.out.println("i/o error & arrithematic error & index of an array out of bound");
+}
+
+finally Block
+
+-finnally block always excute, weather or not an exception is thrown or a return ststement is used , except encounter System.exit(0);
+-finally block whether executes or not an exception occurs or not
+
+public static void main (String[] args) {
+    try{
+  m1();//thgis cause StackOverflowError
+    }catch(StackOverflowError e){
+       System.out.println("catch-block");
+    }finally{
+       System.out.println("finally");
+    }
+  }
+  
+  public static void m1(){
+    m1();//an error occurs the compiler will not excute the next line
+    System.out.println("Exception");
+  }
+  
+  Output
+  catch-block
+finally
+
+
+ public static void main (String[] args) {
+   System.out.println(new Main().goHome());
+  }
+  
+ int goHome(){
+try{
+fall();
+System.out.println("try ");
+return -1;
+}catch(Exception e){
+System.out.println("catch ");
+return -2;
+}finally{
+System.out.println("finally ");
+return -3;
+}
+}
+
+private void fall() throws IOException{
+throw new IOException();
+}
+
+output
+catch 
+finally 
+-3
+
+If there is no Exception to catch , Catch-block will not be excuted
+
+ public static void main (String[] args) {
+   System.out.println(new Main().goHome());
+  }
+  
+ int goHome(){
+try{
+System.out.println("try ");
+return -1;
+}catch(Exception e){
+System.out.println("catch ");
+return -2;
+}finally{
+System.out.println("finally ");
+return -3;
+}
+}
+
+Output:
+
+try 
+finally 
+-3
+Having two exception on diferent points in the try-catch-finally block
+
+ public static void main (String[] args) {
+   System.out.println(new Main().goHome());
+  }
+  
+ String goHome(){
+try{
+throw new IOException();//primary exception i.e IOException
+}finally{
+String s=null;
+System.out.println("try-finally");
+System.out.println(s.length());//supressed exception i.e NullPointerException
+return "return finally";//will not be excuted
+}
+}
+
+Output:
+
+try-finally
+
+if there is primary and supressed exception on a try-catch-block the suppressed exception will be shown
+
+Exception in the catch-block
+
+public static void main (String[] args) {
+   System.out.println(new Main().goHome());
+  }
+  
+ String goHome(){
+try{
+throw new IOException();//primary exception i.e IOException
+}catch(IOException e){
+  String s=null;
+  System.out.println(s.length());//this NullPointerException will not be executed to just go to finallyblock
+System.out.println("try-catch");
+
+  System.out.println("IOException in try");
+}finally{
+
+return "return finally";
+}
+}
+
+Output:
+
+return finally
+
+
+summary -try statement
+legal vs illegal configurations with a traditional try sstement
+
+table>
+0 catch blocks
+
+1 or more catch blocks
+
+
+-> 0 finaly block
+Not legal  i.e try{}
+legal i.e try{}catch(){}
+
+-> 1 finaly block
+legal  i.e try{}fanally{}
+legal i.e try{}catch(){}finally{}
+
+-> 2 or more finaly block
+Not legal i.e try{}finally{}finally{}
+Not legal i.e try{}catch(){}finally{}finally{}finnaly{}
+
+
+Automatic resource Management
+
+Resources
+-a file/database that requires somekind of stream or connection to read or write data
+
+Resource Leak
+-when a program fails to release its connections to the resources, resulting in the resource becoming inaccessible
+
+try-with-resources ststement
+
+-it require resources that implements the AutoCloseable or Closeable interface which includes a void close() method
+
+-it can include multiple resources which are closed after the try clause ends and before any catch/finally block in the reverse order in chich they are declared.
+
+-finally-block in a try-with resource is optional
+
+
+TryResource.java
+
+public class TryResource{
+
+psvm(string.. a){
+
+}
+public void readFile(String file){
+FileInputStream = null;
+try{
+is= new FileInputStream("file-path");
+//code to read from the file
+}catch(IOException e){
+e.printStackTrace();
+}finally{
+if(is!=null){
+try{
+is.close();
+}catch(IOException e2){
+e2.printStackTrace();
+}
+}
+}
+}
+}
+
+We might forget to close resources but from java 7 we can close resource automatically in reverse order
+
+try(
+Connection con=DriverManager.getConnection(url,username,password);
+var stmt=con.prepareStatement(sql);
+){//this try will close the resources  automatically
+//and the last semi colon is optional
+//do your database operation here
+}catch(SQLException ex){
+ex.printStackTrace();
+}
+
+
+Implemanting AutoCloseable
+
+MyFileClass.java
+public class MyFileClass implements AutoCloseable{
+private final int num;//final variable need to be intialized on the line of declaration but it will be intialized on the contrustor
+
+public MyFileClass(int num){
+this.num=num;
+}
+@Override
+public void close() throws Exception{
+sout("Closing "+num);
+}
+
+}
+
+Main.java
+
+public class Main{
+
+psvm(String... a){
+
+try(
+MyFileClass f1=new MyFileClass(1);
+MyFileClass f1=new MyFileClass(2);
+){//this will close in reverse order
+throw new RuntimeException();
+}catch(Exception e){
+sout("expetion in try");
+}
+}
+}
+
+Output
+
+Closing 2
+Closing 1
+expetion in try
+
+behind the scence it will implicitly create a finally-block but we can add another explicitly finally-block and will compiles
+
+psvm(String... a){
+
+try(
+MyFileClass f1=new MyFileClass(1);
+MyFileClass f1=new MyFileClass(2);
+){
+throw new RuntimeException();
+}catch(Exception e){
+sout("expetion in try");
+}finally{
+sout("Now in finally-block");
+}
+}
+
+Output:
+
+Closing 2
+Closing 1
+expetion in try
+Now in finally-block
+
+Autocloseable vs Closeable interface
+
+Closeable extends IOException
+Closeable is the super inteface of AutoCloseable
+-calling close() method more than once does not have any side effects
+-Closeable is an older interface
+
+
+AutoCloseable extends Exception
+AutoCloseable is the subinterface of Closeable
+-calling close() method more than once have any side effects
+-AutoCloseable is an new interface introduced in java 7
+
+
+public class MyResource implements AutoCloseable {
+public void close() throws Exception {
+        System.out.println("Closing!");
+    }
+}
+
+try (MyResource res = new MyResource()) {
+    // use resource here
+}
+
+
+Summary -try-with-resorces statement
+
+-Each resource much include the data type and be separeted by a semicolon(;)
+-var can be use as the data type
+
+-try-with-resources is guaranteed s a call the close() method on resources
+
+-catch and explicit finally block are optional
+
+-the resources creted in the try block are in scope only within the try-block
+
+legal vs illegal configurations with a traditional try sstement
+
+table>
+0 catch blocks
+
+1 or more catch blocks
+
+
+-> 0 finaly block
+legal  i.e try{}
+legal i.e try{}catch(){}
+
+-> 1 finaly block
+legal  i.e try{}fanally{}
+legal i.e try{}catch(){}finally{}
+
+-> 2 or more finaly block
+Not legal i.e try{}finally{}finally{}
+Not legal i.e try{}catch(){}finally{}finally{}finaly{}
+
+
+
+public class Main{
+  
+  public static void main (String[] args) throws Exception{
+  try(
+MyFileClass f1=new MyFileClass(1);
+MyFileClass f2=new MyFileClass(2);
+){//this will close in reverse order
+//throw new RuntimeException();
+}
+  }
+}
+class MyFileClass implements AutoCloseable{  
+  private final int num;
+public MyFileClass(int num){
+this.num=num;
+}
+@Override
+public void close() throws Exception{
+System.out.println("Closing "+num);
+}
+
+}
+
+
+Scope of try
+
+public void scope() throws Exception{
+try(
+Scanner s=new Scanner(System.in)
+){
+s.nextLine();
+}catch(Exception ex){
+s.nextLine();//compile error
+}finally{
+s.nextLine();//compile error s is out of scope coz the resource has being close
+}
+}
+
+Features
+Implicitly finally block 
+-a hiden finally block created by a compiler
+-JVM calls the close at the end of the try statement
+-it will be called before optional catch and explicity finally block
+
+JammedTurkeyCage.java
+
+public class JammedTurkeyCage implements AutoCloseable{
+
+@Override
+public void close throws illegalArgumentException{
+throw new illegalArgumentException("Cage door does not close");//SUPPRESSED EXCEPTION
+} 
+
+psvm(String... a){
+
+try(var t= new JammedTurkeyCage()){
+throw new RunetimeException("Turkey ran off");//PRIMARY EXCEPTION
+}catch(IllegalArgumentException ex){
+sout("catch"+e.getMessage());
+}
+}
+
+}
+
+-Explicit finally block-declared by the programmer
+
+JammedTurkeyCage.java
+
+public class JammedTurkeyCage implements AutoCloseable{
+
+@Override
+public void close throws illegalArgumentException{
+throw new illegalArgumentException("Cage door does not close");//SUPPRESSED EXCEPTION
+} 
+
+psvm(String... a){
+
+try(var t= new JammedTurkeyCage()){
+throw new RuntimeException("Turkey ran off");//PRIMARY EXCEPTION
+}finally{
+throw new RuntimeException("failed to catch it");//SUPPRESSED EXCEPTION
+}
+}
+
+}
+
+-SUPPRESSED EXCEPTION will be shown
+
+-Effective final
+
+-Suppresed exceptions
+
+-primary exceptions
+
+
+Create and use Custom exception
+
+Declaring Exception Classes
+-when create your exception it is common to extend
+- Exception for checked or
+-RuntimeException for unchecked
+
+
+Dophin.java
+
+class CannotSwimException extends Exception{//checked exception
+
+public CannotSwimException(){
+super();
+}
+public CannotSwimException(Exception e){
+super(e);
+}
+
+public CannotSwimException(String message){
+super(message);
+}
+
+} 
+class DangerInException extends RuntimeException{}//unchecked exception
+
+class SharkinTheWaterException extends DangerInException{}
+
+public class Dolhin{
+
+public void swim() throws CannotSwimException{
+}
+}
+
+Main.java
+
+psvm(String... a) throws CannotSwimException{
+//throw new CannotSwimException();
+//throw new CannotSwimException("Broken motor");
+throw new CannotSwimException(new FileNotFoundException("cannot find shark"));
+}
+
+
+
+Example 2
+Main.java
+
+public class Main {
+    public static void main(String[] args) {
+     new AccountController().withdraw(new BigDecimal(2000.97));
+  }
+}
+
+class AccountController{
+private static final BigDecimal MAX_AMOUNT= new BigDecimal(1000);
+public void withdraw(BigDecimal amount){
+
+if(amount.compareTo(MAX_AMOUNT)==1){//used to compare BigDecimal objects 1 means > & < means less than
+throw new TooMuchMoneyException("You can not withdraw amount more than the set Limit");
+}
+}
+}
+class TooMuchMoneyException extends RuntimeException{
+
+public TooMuchMoneyException(){
+super();
+}
+public TooMuchMoneyException(String msg){
+super(msg);
+}
+}
+
+
+
+
+
+
+
+
+
+
+Managing Exceptions Laur Splica
+Exceptions
+-exceptions that represent problem i.e NullPointerException, ArrayIndexBoundException, ArithematicException you shoild avoid this kinds of errors
+-not all exception reprent problems
+-we have an exception that represent situations e.g failure to get a user
+
+
+Type of exceptions 
+
+1.Checked exceptions
+
+
+2.Runtime Exception/Unchecked Exception
+
+
+To represent exception in java we use class such as
+
+Throwable- represent all situation
+Exception
+-situation where we can tell the application to do something in case the pplication encounter the exception
+RuntimeException
+
+Error
+-situation where we cannot instruct the application to do something otherwie the application will stop working
+e.g OutOfMemoryError is when the Heap memory get full
+StackOverflowError
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Encapsulation & Inherietence
+
+Encapsulation
+-is the way of writting class that enables us not work with class data directtly but to work with class data indirectly by using methods of data i.e getters & setters
+
+-the accessing of class data (variable) should be only done by calling class behaviour methods i.e getter & setter methods
+
+
+
+Cat.java in main package
+
+public class Cat{
+String name;
+int age;
+}
+
+Main.java in main package
+public class Main{
+psvm(String... a){
+Cat c1=new Cat();
+c1.name="Kundai";
+c1.age=17;
+
+sout(c1.name);//not allowed but compiles
+}
+}
+
+-the above code does not implement encapsulation coz we rare working with Class data directly
+
+Implementing Inheritence
+
+Cat.java
+
+public class Cat{
+private String name;
+private int age;
+
+//getter & setters
+}
+
+Main.java
+public class Main{
+psvm(String... a){
+Cat c1=new Cat();
+c1.setName("Kundai");
+c1.setAge(17);
+
+sout(c1.getName());
+}
+}
+
+
+Advantges of encapsulation
+-easier to check where variable is being set
+-you can intercept the getter & setters methods
+
+
+disadvantges of encapsulation
+-you cannot decrement/increment the variable using getter & setter methods
+
+NB
+-good prarctice to adhere with Naming standards of getter & setter methods coz some fsramework in java will be easy to idetify the methods
+
+Inheritence
+
+
+Main.java
+public class Main {
+    public static void main(String[] args) throws IOException{
+     A a1= new A();
+a1.x=10;
+a1.m();
+
+B a2= new B();
+a2.x=20;
+a2.m();
+
+A a3= new B();
+a3.x=30;
+a3.m();
+  }
+}
+//A.java
+class A{
+//class members are inherited depending with access modifiers and if they are not final
+//default varibles are only inherited by classes in same package
+int x;
+private int y;//note visible to subclass
+double area;
+void m(){
+System.out.println("method m"+x);
+}
+}
+
+//B.java
+class B extends A{
+String area;//this will hide the inherited area variable
+public B(){
+sout(super.area);
+}
+}
+
+Output:
+
+method m10
+method m20
+method m30
+
+What you can do after overriding
+-add new fields
+-add new behaviour
+-change fields->  hiding fields 
+-change behaviour -> overriding
+
+-inheritence is also called is-A i.e the relationship btwn two objects
+
+e.g class Circle extends Shape{}
+
+Has-A relationship
+-is when another objects contains another objects
+
+ public classs Owner{
+ private Laptop lap;
+ }
+
+Overriding
+
+-changing the behavour of the overriden method
+-you cannot extends multiple classes in java
+-public class member can be vissble to any subclass
+-default can be visble to the subclass of subclass in same class
+-protected can be visible from any subclass in the project
+
+Overidding Rules
+method signatures of method in super/subclass should be same i.e method name/identifier and order /type of parameters should be same
+
+
+-Return type methods should be same and in case of object return types they can be same or an overidden methods can have subtype of the return type
+
+method in superclass
+Number m2(){//supertype return type
+return 10;
+}
+
+method in subclass
+Integer m2(){//subtype return type
+return 5;
+}
+
+Order of access modifiers
+public protected
+default
+private
+
+-the overidden method should have an access modifer which more visible than the one in the super class methods or same
+
+SuperClass
+A.java
+public class A{
+
+protected void m3(){
+sout("in A");
+}
+}
+SubClass
+B.java
+public class B extends A{
+
+public void m3(){
+sout("in A");
+}
+protected void m3(){
+sout("in A");
+}
+
+void m3(){//will not compile
+sout("in A");
+}
+
+private void m3(){//will not compile
+sout("in A");
+}
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+     A a1= new A();
+a1.m();
+A a3= new B();
+a3.m();
+  }
+}
+
+//A.java
+class A{
+void m(){
+System.out.println("in class A");
+}
+Number m2(){
+return 10;
+}
+}
+
+//B.java
+class B extends A{
+/*void m(){
+System.out.println("in class B");
+}*/
+@Override
+Integer m2(){//integer is te child of Number parent
+return 5;
+}
+}
+
+Output:
+
+in class A
+in class B
+
+When there is no overriden method in sub class the subclass object will refrence the method in super class
+
+public class Main {
+    public static void main(String[] args) {
+     A a1= new A();
+a1.m(); //in class A
+A a3= new B();
+a3.m();////in class A
+  }
+}
+
+//A.java
+class A{
+void m(){
+System.out.println("in class A");
+}
+}
+
+//B.java
+class B extends A{
+
+}
+
+Output
+
+in class A
+in class A
+
+
+Overidding methods that throws the exceptions
+
+Throwing checked exception
+
+Superclass
+A.java
+public class A{
+void m() throws IOException{
+
+}
+}
+
+SubClass
+B.java
+public class B extends A{
+void m(){
+//avoid throwing exception from the superclass method
+
+}
+void m()throws FileNotFoundException{
+//you can throw subtype exception
+
+}
+void m()throws IOException{
+//you can throw same type exception
+
+}
+void m()throws Exception{//will not compile
+//can't throws wider/bigger/type of exception
+
+}
+}
+
+-@Override annotation is used to explicity show that the method has being overriden
+-in the ocp11 exam @Override can be shown or note
+
+
+comparing overloading & overriding
+
+overloading 
+-having multiple methods with same (identifier) names with different paratemers -parameters can be in different order
+-overloading methods are sually declared in same class
+-constructors can be overloaded
+-static or non static my be overload
+-doesn't care about access modifier
+-doesn't care about about exception
+--doesn't care return types
+-you can overload final method
+-cannot overload with inhertence
+
+ overriding
+-same method identifer
+-takes care of the return type
+-no overriding for constructor
+-takes care of exception
+-use of correct access modifer to override
+-final method can not be overriden
+-final class can not be extended
+-you cannot override static method
+-override is achieved through inheritence
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Working with context
+
+-there should be an entitymanager for each usecase
+
+Main.java
+//Enabling  properties in entitymanager
+props.put("hibernate.show_sql","true");
+props.put(hibernate.hibm2ddl.auto","create");//this will allow create tables or update,none,create
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+java Module  , Project jigsaw and Java 9 syntax
+
+Before
+-no easy of seeing which libary is missing
+-no easy way to hididing functionality
+-no easy way to to see which jar are linking
+-you have to use all the jar
+
+After                                                                                                                                           module
+
+-you can select the jars which you want
+
+Creating a modular application
+
+>file>New>Module
+in the main project folder
+
+
+Module info file
+-create a module info in the src folder of each module
+
+
+module com.package-name{
+exports service;
+requires module-name;
+}
+
+Java Module
+
+ocp 11 practice question and solution
+
+
+Java SE 11 Programmer I
+
+Creating a Simple Java Program
+
+Working with Java Primitive Data Types and String APIs
+
+String methods 
+
+int length();
+char charAt(int index);
+int indexOf(int ch);
+String substring(int beginIndex, int endIndex);
+String substring(int beginIndex);
+String concat(String str);
+String toLowerCase();
+String toUpperCase();
+String replace(char oldChar, char newChar);
+String strip();
+String stripLeading();
+String stripTrailing();
+String trim();
+
+
+methods for inspecting a String include:
+
+boolean isBlank();
+boolean isEmpty();
+boolean startsWith(String prefix);
+boolean endsWith(String suffix);
+boolean contains(CharSequence s);
+boolean equals(Object anObject);
+boolean equalsIgnoreCase(String anotherString);
+
+
+question 1
+
+StringBuilder sb = new StringBuilder("12345678");
+    sb.setLength(5);//extract a string of 5 chracters with space
+    System.out.println(sb.toString());
+    sb.setLength(10);//extract a string of 5 chracters with space if there nomore charecters
+      System.out.println(sb.toString()+"kudzie");
+    System.out.println(sb.length());
+    
+ output
+ 
+ 12345
+12345    kudzie
+10
+
+Using Operators and Decision Constructs
+
+Question 1
+
+int k = 1;
+    int[] a = { 1 };
+    k += (k = 4) * (k + 2); //k= 1+4*6=1+24=25
+    a[0] += (a[0] = 4) * (a[0] + 2);//a[0]=1+4+
+    System.out.println(k + " , " + a[0]);
+    
+    output
+    25 , 25
+    
+Question 2
+public class SM {
+    public String checkIt(String s) {
+        if (s.length() == 0 || s == null) {//Nupointer exception coz the passed s is null you cannot call string method from a null value
+            return "EMPTY";
+        }
+        else return "NOT EMPTY";
+    }
+
+    public static void main(String args[]) {
+        SM a = new SM();
+        System.out.println(a.checkIt(null));
+    }
+}
+
+Question 3
+
+public String checkIt(String s) {
+        if (s == null||s.length() == 0) {//this will excute only s==null on the lefthandside coz there is shortcircult
+            return "EMPTY";
+        }
+        else return "NOT EMPTY";
+    }
+
+    public static void main(String args[]) {
+        Main a = new Main();
+        System.out.println(a.checkIt(null));
+    }
+
+Output
+EMPTY
+
+Question 4
+
+public static int operators() {
+        int x1 = -4;
+        int x2 = x1--;//-4
+        int x3 = ++x2;//2+(-4)=-2
+        if (x2 > x3) { //-4<
+            --x3;
+        } else {
+            x1++;
+        }
+        return x1 + x2 + x3;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(operators());
+    }
+    
+
+Working with Java Arrays
+
+
+Describing and Using Objects and Classes
+
+
+Creating and Using Methods
+
+
+Applying Encapsulation
+
+
+Reusing Implementations Through Inheritance
+
+
+Programming Abstractly Through Interfaces
+
+
+Handling Exceptions
+
+
+Understanding Modules
+
+
+Understanding Java Technology and Environment
+
+
+
+
+
+
+
+
+repository package
+
+Spring Framework -Telusko
+
+https://www.youtube.com/watch?v=If1Lw4pLLEo
+
+
+
+Hibernate - Telusko
+https://www.youtube.com/watch?v=JR7-EdxDSf0
+
+To implement ORM we use hibernate which is the most popular
+
+-create the object of session that comes from sessionFactory that has database connection properties through XML,java configuration
+
+
+1. create a maven project
+model >POJO class
+
+@Entity
+@Table(name="book_tb");
+public class Book{
+
+@Id
+private int id;
+//@Transient //prevent the name to be stored as column in the table
+//private String name;
+private BookName bkName;
+private BigDecimal price;
+
+//getters & Setters
+}
+
+Main.java
+
+public class Main{
+
+psvm(String... a){
+
+BookName bkName=new BookName();
+Book book= new Book();
+book.setFname("Kudzai");
+book.setFname("Kudzanai");
+book.setFname("Kundanai");
+book.setId(1);
+//book.setName("java core");
+book.setBookName(bkName);
+book.setPrice(300);
+
+Configuration con= new Configuration().configure("configuration-file-database-properties").addAnnotatedClass(Book.class);
+SeviceRegistry reg=new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
+SessionFactory sf=con.buildSessionFactory(reg);
+//SessionFactory sf=con.buildSessionFactory();//buildSessionFactory() is depreciated method
+Session session=sf.openSession();
+
+Transaction tx = session.beginTransaction();
+
+session.save();
+tx.commit();
+
+//Session & SessionFactory is the interface
+}
+
+}
+
+dependencies
+
+Hibernate-core
+mysql-connector-j
+
+6. Configuration file
+
+<hibernate-configuration>
+<session-factory>
+<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+<property name="hibernate.connection.url">com.mysql.jdbc.Driver</property>
+<property name="hibernate.connection.username">root</property>
+<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+<property name="hbm2ddl.auto">update</property>
+
+<property name="show_sql">true</property>
+
+</session-factory>
+</hibernate-configuration>
+
+
+
+8. Show SQL property
+9. Annotation
+10. Fetching data using Hibernate
+ Transaction tx= session.beginTransaction();
+ Book bk = (Book) session.get(Book.class,2);
+session.commit();
+11. How to use embeddable object
+  >Model
+  
+  BookName.java
+  @Embeddable //this will allows us to insert column names of this POJO without creating a sperate table
+  puiblic class BookName{
+  private String fname;
+  private String mname;
+  private String lname;
+  
+  //getter & setters
+  
+  }
+
+12 Mapping Relations Theory
+14. Fetch EAGER LAZY
+15. HibernATE Catching
+16. Catching Level 1
+17. Catching Level 2
+18. Catching Level 2 with Query
+19. Hibernate Query Language Theory HQL
+23. Hibernate Object State Persitance Life cycle
+25. Hibernte Get vs load
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
